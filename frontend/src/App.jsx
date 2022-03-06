@@ -1,5 +1,5 @@
 import './App.css';
-
+import bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Routes, NavLink, Link} from 'react-router-dom'
 import {Route} from 'react-router-dom';
 import {Home} from './components/Home';

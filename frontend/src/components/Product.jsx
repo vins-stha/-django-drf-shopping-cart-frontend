@@ -82,7 +82,7 @@ export default function Products() {
                                 <Link to={`product/${product.id}`}
 
                                       key={product.id} >
-                                    <img className="card-img-top prod-image contain" src="" alt="Card image cap" />
+                                    <img className="card-img-top prod-image contain" src={product.product_image} alt="Card image cap" />
                                     <div className="card-body">
                                         <p className="card-text small">{(product.title).length < 35 ? (product.title) : (product.title).substring(0, 32) + "..."}</p>
                                         <div className="card-text small">Price : ${product.price}</div>

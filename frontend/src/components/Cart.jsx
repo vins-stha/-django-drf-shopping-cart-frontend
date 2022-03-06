@@ -29,7 +29,7 @@ export const Cart = () => {
             <>
                 <div key={item.product.id} className="cart-card d-flex border">
                     <Link to={`/product/${item.product.id}`}>
-                        <img className="cart-card__img" src="" alt=""/>
+                        <img className="cart-card__img"src={item.product.product_image} alt=""/>
                     </Link>
 
                     <div className="cart-item-detail">
@@ -87,6 +87,14 @@ export const Cart = () => {
                 e.preventDefault();
                 handleChangeItem('delete_cart')
             }}> Delete cart</div>}
+            <div className="cart-footer d-flex justify-content-center">
+                <div className="cart-total border-bottom display-6 bold  m-r-3"> Cart Total :
+                    ${cart_Total.toFixed(2)}</div>
+                <div className=" btn btn-danger  btn-danger-outline m-l-1 p-2" onClick={e => {
+                    e.preventDefault();
+                    handleChangeItem("EMPTY_CART")
+                }}><h6>Clear up!</h6></div>
+            </div>
 
             {state.cartItems.length > 0 ? (
                 <>

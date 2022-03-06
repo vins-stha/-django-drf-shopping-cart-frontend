@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import {useDispatch} from "react-redux";
 import {addToCart} from "./redux/actions";
 
@@ -32,12 +32,12 @@ export default function ProductDetail(props) {
         dispatch(addToCart(product));
         alert('Added!');
     };
-
+    {/*<Link to={`product/${product.id}`}*/}
     const SingleProduct = () => {
         return (
             <>
                 <div className="d-flex">
-                    <img src="" className=" prod-detail-image card-img-top" alt="" height="250px"
+                    <img src={`http://localhost:8000${productDetail.product_image}`}className=" prod-detail-image card-img-top" alt="" height="250px"
                          border="1px solid black"/>
                     <div className="details flex-column">
                         <h4 className="text-uppercase text-black-50">{productDetail.category}</h4>

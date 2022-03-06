@@ -205,7 +205,7 @@ a {
 }
 
 .cart-card__img {
-  width: 30%;
+  width: 90%;
    height: 100%;
   padding: 0.25rem;
   margin-right: 1rem;
@@ -219,9 +219,12 @@ a {
 }
 
 .item-qty {
-  width: 30%;
-  padding: 0.2rem;
-  border: none;
+  width: 18%;
+  padding: 0 0.2rem;
+  line-height: 3rem;
+  border-radius: 26%;
+  color: darkblue;
+  font-weight: bolder;
  
 }
 .btn {
