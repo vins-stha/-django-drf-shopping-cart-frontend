@@ -24,12 +24,11 @@ export const Cart = () => {
     };
     var cart_Total = 0;
     const CartItems = () => state.cartItems.length > 0 && state.cartItems.map(item => {
-        console.log('items=>', item.product.id, item.item_qty)
         return (
             <>
                 <div key={item.product.id} className="cart-card d-flex border">
                     <Link to={`/product/${item.product.id}`}>
-                        <img className="cart-card__img"src={item.product.product_image} alt=""/>
+                        <img className="cart-card__img"src={`${item.product.product_image}`} alt=""/>
                     </Link>
 
                     <div className="cart-item-detail">

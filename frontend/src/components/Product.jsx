@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import ProductDetail from './ProductDetail';
-import { cartStore } from '../index.js'
 import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchActions, addToCart} from "./redux/actions";
@@ -8,18 +6,17 @@ import {fetchActions, addToCart} from "./redux/actions";
 
 export default function Products() {
 
-    const [products, setProducts] = useState([])
-    const [filteredData, setFilteredData] = useState([])
-    const [loading, setLoading] = useState(true);
-    const [productId, setProductId] = useState(null)
-    const [categories, setCategories] = useState([]);
+    // const [products, setProducts] = useState([])
+    // const [filteredData, setFilteredData] = useState([])
+    // const [loading, setLoading] = useState(true);
+    // const [productId, setProductId] = useState(null)
+    // const [categories, setCategories] = useState([]);
     const dispatch = useDispatch();
 
     // fetch products on load
     useEffect(async() => {
 
           dispatch(fetchActions());
-
 
     }, []);
     const stateProducts =  useSelector(state => state.isSearch ? state.searchResults :  state.products);
@@ -35,40 +32,24 @@ export default function Products() {
         <>
             <div className="product-contents clearfix">
                 <div className="product-nav  d-flex justify-content-center py-1" >
-                    <a className="btn btn-outline-dark m-r-1"
-                        // href="products/category/jewelery"
-                        >
+                    <a className="btn btn-outline-dark m-r-1">
                         <i className="far fa-gem m-r-1"></i>
-                        Jewellery
+                        Mobiles
                     </a>
-                    <a className="btn btn-outline-dark m-r-1"
-                        // href="products/category/jewelery"
-                    >
+                    <a className="btn btn-outline-dark m-r-1">
                         <i className="fas fa-tshirt"></i>
-                        Men's Clothing
+                        Laptops
                     </a>
-                    <a className="btn btn-outline-dark m-r-1"
-                        href="products/category/jewelery"
-                        // onClick={(e) => {
-                        //     e.preventDefault();
-                        //     categorizedData("women's clothing");
-                        // }}
-                    >
+                    <a className="btn btn-outline-dark m-r-1" href="products/category/jewelery">
                         <i className="fas fa-tshirt"></i>
                         Women's Clothing
                     </a>
-                    <a className="btn btn-outline-dark m-r-1"
-                        href="products/category/jewelery"
-
-                    >
+                    <a className="btn btn-outline-dark m-r-1" href="products/category/jewelery">
                         <i className="fas fa-laptop-house"></i>
                         Electronics
                     </a>
 
-                    <a className="btn btn-outline-dark m-r-1"
-                        href="products/category/jewelery"
-
-                    >
+                    <a className="btn btn-outline-dark m-r-1" href="products/category/jewelery">
                         <i className="fa fa-shopping-cart m-r-1"></i>
                         All
                     </a>

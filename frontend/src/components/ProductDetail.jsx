@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {useDispatch} from "react-redux";
 import {addToCart} from "./redux/actions";
 
@@ -32,7 +32,6 @@ export default function ProductDetail(props) {
         dispatch(addToCart(product));
         alert('Added!');
     };
-    {/*<Link to={`product/${product.id}`}*/}
     const SingleProduct = () => {
         return (
             <>
