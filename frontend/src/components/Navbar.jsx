@@ -56,10 +56,10 @@ export const Navbar = (props) => {
                 </form>
 
                 <div className="buttons ml-10">
-                    <a className="btn btn-outline-light" href=''>
+                    <Link className="btn btn-outline-light" to='/admin/login'>
                         <i className="fa fa-sign-in m-r-1"/>
                         Login
-                    </a>
+                    </Link>
                     <a className="btn btn-outline-light" href=''>
                         <i className="fa fa-user-plus m-r-1"></i>
                         Register
