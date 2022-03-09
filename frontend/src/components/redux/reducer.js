@@ -7,7 +7,8 @@ import {
     DELETE_CART,
     REMOVE_ITEM_FROM_CART,
     LOGIN_ACTION,
-    LOGOUT_ACTION
+    LOGOUT_ACTION,
+    FETCH_CATEGORIES
 
 
 } from "./actions";
@@ -20,7 +21,7 @@ const initialState = {
         cart: []
 
     },
-
+    categories:[],
     cartItems: [],
     totalItem: 0,
     admin: [],
@@ -96,18 +97,14 @@ const allReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartItems: state.cartItems.filter(item =>item.product.id !== action.payload.id
-                    // console.log('XXX=>',item,
-                    //         'itemproduct=', item.product.id ,
-                    //         'pyaloadid',action.payload.id,
-                    //         '===?',item.product.id === action.payload.id
-                    // )
-                    // item.product.id !== action.payload.id ? {
-                    // ...item
-                    // }:''
-
                 )
             };
-        case LOGOUT_ACTION:
+        case FETCH_CATEGORIES:
+            return {
+                ...state,
+                categories: action.payload
+            };
+            case LOGOUT_ACTION:
             return {
                 state
             };

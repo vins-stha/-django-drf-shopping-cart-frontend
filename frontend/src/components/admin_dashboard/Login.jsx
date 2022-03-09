@@ -1,11 +1,13 @@
 import React,{useState} from 'react';
 import {useNavigate} from 'react-router-dom'
+import {useCookies} from 'react-cookie'
 
 
 export const AdminLogin = () => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [message, setMessage] = useState();
+    const[cookies,setCookie] = useCookies();
     const navigate = useNavigate();
     const handleFormSubmit = async (e) => {
 
@@ -30,8 +32,8 @@ export const AdminLogin = () => {
                 status: result.status,
                 message: result.status === 200 ? 'Login Successful!' : response.message
             });
-            response.access ? localStorage.setItem('access_token',response.access): localStorage.setItem('access_token','');
-            response.refresh ? localStorage.setItem('refresh_token',response.refresh):localStorage.setItem('refresh_token','');
+            response.access ? setCookie('access_token',response.access): setCookie('access_token','');
+            response.refresh ? setCookie('refresh_token',response.refresh):setCookie('refresh_token','');
 
             response.access !== undefined ? navigate('/admin/dashboard'): navigate('/');
 

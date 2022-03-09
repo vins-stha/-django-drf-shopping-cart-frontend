@@ -8,6 +8,8 @@ export const DELETE_CART = "DELETE_CART";
 export const LOGIN_ACTION = "LOGIN_ACTION";
 export const LOGOUT_ACTION = "LOGOUT_ACTION";
 export const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART";
+export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
+
 
 export const baseUrl = "http://localhost:8000/api/v1/";
 
@@ -62,7 +64,6 @@ export const emptyCart = (data) => {
     }
 };
 
-
 export const fetchActions = (searchTerm, pk) => {
     console.log('search=', searchTerm, 'product_id', pk);
     return async (dispatch, getState) => {
@@ -97,4 +98,25 @@ export const fetchActions = (searchTerm, pk) => {
 
     }
 };
+/************admin actions *******************************/
+export const categoriesAction = (fetchall=true, type="",pk="") => {
+    return async (dispatch, getState) => {
+       var url;
+        if (fetchall)
+            url = `${baseUrl}categories/`;
+       let result = await fetch(url);
+       let results = await result.json();
+
+       dispatch(categoriesList(results))
+
+    }
+};
+
+export const categoriesList = (data) => {
+    return {
+        type: FETCH_CATEGORIES,
+        payload: data
+    }
+};
+
 

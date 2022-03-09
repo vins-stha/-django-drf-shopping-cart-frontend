@@ -332,3 +332,45 @@ forms
   display: inline-block;
   margin: 100px auto;
 }
+
+/****Dashboard*******/
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: #edecd6;
+  border-radius: 5px;
+
+}
+.actions-bar,  .admin-forms{
+  width: 20%;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  a {
+    border-bottom: 2px solid green;
+  }
+}
+.action_lists {
+  color: black !important;
+}
+
+.admin-forms,.form-inputbox  {
+  border: 1px solid grey;
+  padding: 1rem;
+  border-radius: 5px;
+  margin: 1rem;
+  width: 100%;
+}
+
+.form-inputbox {
+ display: block;
+  max-width: 75%;
+  padding: 0.25rem;
+  border: none;
+  line-height: 1.5;
+  color:royalblue;
+
+
+}
