@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useCookies} from "react-cookie";
 import {HandleAdminRequests} from './HandleAdminRequests'
 
-export const AddCategory = ({handleClickAction}) => {
+export const EditCategory = ({handleClickAction}) => {
 
     const [cookies, setCookie, getCookie] = useCookies();
     const [categoryName, setCategoryName] = useState();
@@ -14,7 +14,7 @@ export const AddCategory = ({handleClickAction}) => {
         let result = await HandleAdminRequests({
             type: "categories",
             body: {name: categoryName},
-            method: "post",
+            method: "put",
             access_token: cookies.access_token,
             refresh_token: cookies.refresh_token
         });
@@ -34,7 +34,7 @@ export const AddCategory = ({handleClickAction}) => {
         <>
             <div className="actions-forms admin-forms">
                 <div className="input-form">
-                    <h3 className={'form-title'}>Add Category</h3>
+                    <h3 className={'form-title'}>Edit Category</h3>
                     <form className={'form_container'} onSubmit={e => {
                         e.preventDefault();
                         handleFormSubmit(e)

@@ -10,6 +10,7 @@ import ProductDetail from './components/ProductDetail';
 import {Dashboard} from './components/admin_dashboard/Dashboard'
 import {UserLogin} from './components/UserLogin';
 import {AdminLogin} from "./components/admin_dashboard/Login";
+import {AddCategory} from "./components/admin_dashboard/AddCategory";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                         <Route exact path="/cart/" element={<Cart/>}/>
                         <Route exact path={"/admin/login"} element={<AdminLogin/>}/>
                         <Route exact path={"/admin/dashboard"} element={<Dashboard/>}/>
+                        <Route exact path={"/admin/add-category/"} element={<AddCategory/>}/>
 
                     </Routes>
                 </BrowserRouter>
