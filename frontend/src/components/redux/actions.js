@@ -65,9 +65,9 @@ export const emptyCart = (data) => {
 };
 
 export const fetchActions = (searchTerm, pk) => {
-    console.log('search=', searchTerm, 'product_id', pk);
+    // console.log('search=', searchTerm, 'product_id', pk);
     return async (dispatch, getState) => {
-        console.log('ready');
+
         let url;
         if (pk) {
             url = `${baseUrl}all-products/${pk}`;

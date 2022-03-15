@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom/index'
 import {useDispatch, useSelector} from "react-redux";
-import {fetchActions} from "./redux/actions";
+import {fetchActions} from "../redux/actions";
 
 export const Navbar = (props) => {
     let qty = 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export const AddProduct = ({categories, handleFormSubmit}) => {
+export const AddProduct = ({categories, handleFormSubmit,id}) => {
 
     return (
         <>
@@ -33,7 +33,6 @@ export const AddProduct = ({categories, handleFormSubmit}) => {
 
                     <label htmlFor="instock" className={'name'}>Category name : </label>
                     <input type="text" name={"stock"} className={'form-inputbox'}/>
-
 
                     <button className="btn btn-primary submit"> Submit</button>
                 </form>

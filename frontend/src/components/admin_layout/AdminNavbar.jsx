@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Link,useNavigate} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom/index'
 import {useCookies} from "react-cookie"
 
 
@@ -15,7 +15,7 @@ export const AdminNavbar = () => {
     };
 
     return (
-
+        <>ADMIN NAVVAR
         <nav className="navbar navbar-expand-lg navbar-dark p-2">
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
                     aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,11 +38,9 @@ export const AdminNavbar = () => {
                         <i className="fa fa-user-plus m-r-1"></i>
                         Register
                     </a>
-
                 </div>
-
             </div>
         </nav>
-
+        </>
     )
 };

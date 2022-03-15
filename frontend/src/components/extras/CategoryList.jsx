@@ -4,17 +4,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {categoriesAction} from '../redux/actions';
 import {useCookies} from "react-cookie";
 import {HandleAdminRequests} from './HandleAdminRequests';
-import {EditCategory} from'./EditCategory'
+import {Link} from 'react-router-dom'
+import {AdminSidebar} from "./AdminSidebar";
 
 
 
-export const CategoryList = () => {
-    //
+export const CategoryList = ({handleClickAction}) => {
+
     const dispatch = useDispatch();
     const [cookies] = useCookies();
-    //
+    const [refresh, setRefresh] = useState(false);
 
-    const handleClick = async (e,action,pk) => {
+    const handleClick = async (e, action, pk) => {
         e.preventDefault();
 
         let result = await HandleAdminRequests({
@@ -27,23 +28,22 @@ export const CategoryList = () => {
             refresh_token: cookies.refresh_token
         });
 
-        try {
-        } catch (e) {
-            console.log('Something went wrong!', e)
-        }
+        if (result.status === 204)
+           {alert(result.status); setRefresh(true);}
     };
 
     useEffect(() => {
         dispatch(categoriesAction());
-    }, []);
+    }, [refresh]);
     //
     const categories = useSelector(state => state.categories);
-    const test = () =>{
-        return <EditCategory/>
-    }
+
     return (
         <>
-            <table className="table table-striped">
+            <AdminNavbar/>
+            <div className="dashboard-container">
+                <AdminSidebar handleClickAction={handleClickAction}/>
+                <table className="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -60,7 +60,10 @@ export const CategoryList = () => {
                         <td>{cat.created_at}</td>
                         <td>
                             <div className="btn-container">
-                                <div className="btn btn-primary"onClick={test}>Edit</div>
+                                <Link  className="btn btn-primary"
+                                       to={"/admin/edit-category/"+cat.id}
+                                      // onClick={e=>handleClickAction(e, "add-category",cat.id)}
+                                >Edit</Link>
                                 <div className="btn btn-danger" onClick={e=>
                                     window.confirm("Are you sure") ? handleClick(e,'delete',cat.id) :''}>
                                     Delete
@@ -69,10 +72,9 @@ export const CategoryList = () => {
                         </td>
                     </tr>
                 ))}
-
-
                 </tbody>
             </table>
+            </div>
         </>
     )
 };

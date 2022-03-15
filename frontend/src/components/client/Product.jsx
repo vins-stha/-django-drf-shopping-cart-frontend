@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom/index';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchActions, addToCart} from "./redux/actions";
+import {fetchActions, addToCart} from "../redux/actions";
 
 
 export default function Products() {

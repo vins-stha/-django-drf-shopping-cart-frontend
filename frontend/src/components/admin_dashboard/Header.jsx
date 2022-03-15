@@ -20,10 +20,8 @@ export const Header = (isLoggedIn) => {
             removeCookie(['auth_token']);
             removeCookie(['isAuthorized']);
             setIsAuthorized(false);
-
             navigate("/");
         }
-
     };
 
     return (

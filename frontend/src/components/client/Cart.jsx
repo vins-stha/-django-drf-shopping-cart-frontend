@@ -1,7 +1,7 @@
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {removeFromCart, emptyCart, addToCart, removeItemFromCart} from "./redux/actions";
+import {Link} from 'react-router-dom/index'
+import {removeFromCart, emptyCart, addToCart, removeItemFromCart} from "../redux/actions";
 
 
 export const Cart = () => {

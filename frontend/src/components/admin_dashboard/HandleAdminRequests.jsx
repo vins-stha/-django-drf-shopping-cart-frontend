@@ -9,11 +9,11 @@ export async function HandleAdminRequests(params) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({refresh: token})
+                body: JSON.stringify({ refresh: token })
             });
 
             let response = await result.json();
-            console.log('Refresh response', result);
+            // console.log('Refresh response', result);
             return response.access
 
         } catch (e) {
@@ -25,29 +25,62 @@ export async function HandleAdminRequests(params) {
     const BASE_URL = "http://localhost:8000/api/v1/";
 
     let url;
-    if (params && params.type === "products")
+    let product_create_edit = false;
+    if (params && params.type === "products" && (params.pk !== undefined || params.pk !== null) && params.method === "put") {
+        url = `products/${params.pk}/`;
+        product_create_edit = true;
+    }
+    if (params && params.type === "products" && params.pk !== undefined && (params.method === "delete" || params.method === "get")) {
+        url = `products/${params.pk}/`;
+        product_create_edit = false;
+    }
+    if (params && params.type === "products" && (params.pk === undefined || params.pk === null) && params.method === "post") {
         url = "products/";
+        product_create_edit = true;
+    }
+    if (params && params.type === "products" && params.pk !== undefined)
+        url = `products/${params.pk}/`;
     if (params && params.type === "categories")
         url = "categories/";
     if (params && params.pk !== undefined && params.type === "category")
-        url = `category/${params.pk}`;
-    console.log('URL', url)
+        url = `category/${params.pk}/`;
 
     try {
         params.access_token = await get_access_token(params.refresh_token);
+        // console.log('NOW FETCHIND DATA frome', BASE_URL + url, "params=", params.body)
+        let result;
+        if (product_create_edit) {
+            result = await fetch(BASE_URL + url, {
+                'method': params.method,
 
-        let result = await fetch(BASE_URL + url, {
-            'method': params.method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${params.access_token}`
-            },
-            body: JSON.stringify(params.body)
-        });
-        console.log('RESUKT', result)
-        let response = await result.json();
-        console.log('rESPONSE', response)
-        return result
+                headers: { 'Authorization': `Bearer ${params.access_token}` },
+
+                body: params.body
+            });
+        } else {
+            result = await fetch(BASE_URL + url, {
+                'method': params.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${params.access_token}`
+                },
+                body: params.method !== "get" ? JSON.stringify(params.body) : null
+            });
+        }
+
+        // console.log('RESUKT of fetch=>', result)
+        // if (result.statusText === "OK" && !result.bodyUsed) {
+        if (params.method === "get" || params.method === "post"){
+            let response = await result.json();
+
+            // console.log('rESPONSE', response);
+            return response
+        }
+        let results = {
+            code : result.status,
+            message:result.statusText
+        };
+        return results // params.method === "put" ||  params.method === "post" || params.method === "delete" ? result : "response"
     } catch (error) {
         console.log('Something went wrong', error);
     }

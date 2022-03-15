@@ -19,7 +19,7 @@ export const AdminLogin = () => {
         try {
 
             let result = await fetch("http://localhost:8000/api/v1/token/", {
-                'method':'POST',
+                'method':'post',
                 headers: {
                     'Content-Type':  'application/json'
                 },
