@@ -65,7 +65,7 @@ export const AddProduct = ({handleClickAction}) => {
             access_token: cookies.access_token,
             refresh_token: cookies.refresh_token
         });
-        console.log('result', result, result.id);
+        // console.log('result', result, result.id);
         if (result.id !== undefined) {
             alert('New product added');
             window.location = "/admin/products/";

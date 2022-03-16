@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {AdminNavbar} from "../../admin_layout/AdminNavbar";
 import {useDispatch, useSelector} from "react-redux";
 import {useCookies} from "react-cookie";
 import {HandleAdminRequests} from "../HandleAdminRequests";
@@ -13,7 +12,7 @@ export const ProductList = ({handleClickAction}) => {
     const dispatch = useDispatch();
     const [cookies] = useCookies();
     const [refresh, setRefresh] = useState(false);
-
+    let reload = false;
     const handleClick = async (e, action, pk) => {
         e.preventDefault();
 
@@ -27,13 +26,16 @@ export const ProductList = ({handleClickAction}) => {
             refresh_token: cookies.refresh_token
         });
 
-        if (result.code === 204)
-        {alert("Deleted successfuly"); setRefresh(true);}
+        if (result.code === 204) {
+            alert("Deleted Successfully");
+            setRefresh(true);
+            reload = true;
+        }
     };
 
     useEffect(() => {
         dispatch(fetchActions());
-    }, [refresh]);
+    }, [reload]);
     //
     const products = useSelector(state => state.products);
 

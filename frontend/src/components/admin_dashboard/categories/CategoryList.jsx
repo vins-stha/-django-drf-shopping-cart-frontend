@@ -37,7 +37,7 @@ export const CategoryList = ({handleClickAction}) => {
 
     useEffect(() => {
         dispatch(categoriesAction());
-    }, [refresh]);
+    }, []);
     //
     const categories = useSelector(state => state.categories);
 

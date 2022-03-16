@@ -16,10 +16,6 @@ export const AdminLogin = () => {
 
     const auth = useAuth();
 
-    useEffect(()=>{
-        console.log('from login page isloggedin', auth.userLoggedIn)
-    },[]);
-
     const handleFormSubmit = async (e) => {
 
         e.preventDefault();
@@ -44,8 +40,6 @@ export const AdminLogin = () => {
                 message: result.status === 200 ? 'Login Successful!' : response.message
             });
 
-            console.log("ACCCCCC", cookies.access_token)
-
             if (cookies.access_token === undefined)
                 setCookie('access_token', response.access)
             if (cookies.refresh_token === undefined)
@@ -55,10 +49,9 @@ export const AdminLogin = () => {
 
             auth.loggedIn(true)
 
-            navigate("/admin/dashboard/")
+            // navigate("/admin/dashboard/")
 
-            // navigate(from, {replace: true})
-
+            navigate(from, {replace: true});
 
         } catch (error) {
             console.log('Something went wrong', error);
