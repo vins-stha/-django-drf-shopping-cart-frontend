@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { AdminNavbar } from "../../admin_layout/AdminNavbar";
-import { useDispatch, useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
-import { HandleAdminRequests } from "../HandleAdminRequests";
-import { AdminSidebar } from "../../admin_layout/AdminSidebar";
-import { categoriesAction, fetchActions } from "../../redux/actions";
+import React, {useState, useEffect} from 'react';
+import {AdminNavbar} from "../../admin_layout/AdminNavbar";
+import {useDispatch, useSelector} from "react-redux";
+import {useCookies} from "react-cookie";
+import {HandleAdminRequests} from "../HandleAdminRequests";
+import {AdminSidebar} from "../../admin_layout/AdminSidebar";
+import {categoriesAction, fetchActions} from "../../redux/actions";
 
 
-export const AddProduct = ({ handleClickAction }) => {
+export const AddProduct = ({handleClickAction}) => {
     const dispatch = useDispatch();
     const [cookies] = useCookies();
     const [categoryName, setCategoryName] = useState('');
@@ -37,9 +37,8 @@ export const AddProduct = ({ handleClickAction }) => {
             setProductImage(
                 e.target.files[0]
             )
-        }
-        else {
-            setProductData({ ...productData, [e.target.name]:  e.target.value });
+        } else {
+            setProductData({...productData, [e.target.name]: e.target.value});
         }
 
     };
@@ -48,15 +47,15 @@ export const AddProduct = ({ handleClickAction }) => {
         let formData = new FormData();
 
         Object.entries(productData).forEach(([key, value]) => {
-            formData.append(key, value)
-        }
+                formData.append(key, value)
+            }
         );
 
         await formData.append('product_image', productImage);
 
         Object.entries(productData).forEach(([key, value]) => {
-            console.log("key", key, "value", value)
-        }
+                console.log("key", key, "value", value)
+            }
         );
 
         let result = await HandleAdminRequests({
@@ -70,17 +69,15 @@ export const AddProduct = ({ handleClickAction }) => {
         if (result.id !== undefined) {
             alert('New product added');
             window.location = "/admin/products/";
-        }
-        else {
-            console.log('Could not create product.',result.statusText)
+        } else {
+            console.log('Could not create product.', result.statusText)
         }
     };
 
     return (
         <>
-            <AdminNavbar />
             <div className="dashboard-container">
-                <AdminSidebar handleClickAction={handleClickAction} />
+                <AdminSidebar handleClickAction={handleClickAction}/>
 
                 <div className="actions-forms admin-forms">
                     <div className="input-form">
@@ -95,63 +92,69 @@ export const AddProduct = ({ handleClickAction }) => {
                             <label htmlFor="Prodcut" className={'label'}>Product name
                                 : <i>{productData['title']}</i></label>
                             <input type="text" name="title" className={'form-inputbox'}
-                                defaultValue={productData['title']}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData['title']}
+                                   onChange={e => handleOnChange(e)}
                             />
                             <label htmlFor="Prodcut" className={'label'}>Price :</label>
                             <input type="number" name="price" className={'form-inputbox'}
-                                defaultValue={productData['price']}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData['price']}
+                                   onChange={e => handleOnChange(e)}
                             />
                             <label htmlFor="Prodcut" className={'label'}>Barcode :</label>
                             <input type="number" name="barcode" className={'form-inputbox'}
-                                defaultValue={productData['barcode']}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData['barcode']}
+                                   onChange={e => handleOnChange(e)}
                             />
                             <label htmlFor="Prodcut" className={'label'}>Available :</label>
                             <input type="number" name="available" className={'form-inputbox'}
-                                defaultValue={productData['available']}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData['available']}
+                                   onChange={e => handleOnChange(e)}
                             />
 
                             <label htmlFor="Prodcut" className={'label'}>Colors :</label>
-                            <select type="select" name={"colors"} className={'form-inputbox'} onChange={e => handleOnChange(e)}>
+                            <select type="select" name={"colors"} className={'form-inputbox'}
+                                    onChange={e => handleOnChange(e)}>
                                 {
-                                    colors.map(opt => { return <option key={opt}>{opt}</option> })
+                                    colors.map(opt => {
+                                        return <option key={opt}>{opt}</option>
+                                    })
 
                                 }
                             </select>
                             <label htmlFor="Prodcut" className={'label'}>Description :</label>
                             <textarea name="description" className={'form-inputbox'}
-                                defaultValue={productData['description']} rows={"10"} cols={"500"}
-                                onChange={e => handleOnChange(e)}
+                                      defaultValue={productData['description']} rows={"10"} cols={"500"}
+                                      onChange={e => handleOnChange(e)}
                             />
-                            <img className="card-img-top prod-image contain" src={productData['product_image']} alt="" />
+                            <img className="card-img-top prod-image contain" src={productData['product_image']} alt=""/>
                             <input type="file" name="product_image" className={'form-inputbox'}
-                                defaultValue={productData.product_image}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData.product_image}
+                                   onChange={e => handleOnChange(e)}
                             />
                             <label htmlFor="description" className={'name'}>Category : </label>
                             <select type="select" name={"category"} className={'form-inputbox'}>
                                 {categories.map(cat => {
-                                    return (<option key={cat.id}>{cat.name}</option>)
-                                }
+                                        return (<option key={cat.id}>{cat.name}</option>)
+                                    }
                                 )}
                             </select>
 
                             <label htmlFor="description" className={'name'}>inStock : </label>
-                            <select type="select" name={"inStock"} className={'form-inputbox'} onChange={e => handleOnChange(e)}>
+                            <select type="select" name={"inStock"} className={'form-inputbox'}
+                                    onChange={e => handleOnChange(e)}>
                                 {
-                                    inStockOptions.map(opt => { return <option key={opt.key}>{opt}</option> })
+                                    inStockOptions.map(opt => {
+                                        return <option key={opt.key}>{opt}</option>
+                                    })
 
                                 }
                             </select>
 
                             <button type={"submit"} className="btn btn-primary submit"
-                                onSubmit={e => {
-                                    e.preventDefault();
-                                    handleFormSubmit(e)
-                                }}> Add
+                                    onSubmit={e => {
+                                        e.preventDefault();
+                                        handleFormSubmit(e)
+                                    }}> Add
                             </button>
                         </form>
                     </div>

@@ -49,7 +49,6 @@ export const AddCategory = ({handleClickAction, id}) => {
 
     return (
         <>
-            <AdminNavbar/>
             <div className="dashboard-container">
                 <AdminSidebar handleClickAction={handleClickAction}/>
                 <div className="actions-forms admin-forms">

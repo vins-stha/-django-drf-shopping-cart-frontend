@@ -13,7 +13,7 @@ export const EditCategory = ({handleClickAction}) => {
     const {id} = useParams();
 
     useEffect(async () => {
-console.log('refresh token inside edit cat', cookies.refresh_token)
+        console.log('refresh token inside edit cat', cookies.refresh_token)
         if (id !== undefined) {
             try {
                 let result = await HandleAdminRequests({
@@ -38,7 +38,7 @@ console.log('refresh token inside edit cat', cookies.refresh_token)
         let result = await HandleAdminRequests({
             type: "category",
             body: {name: categoryName},
-            pk:id,
+            pk: id,
             method: "put",
             access_token: cookies.access_token,
             refresh_token: cookies.refresh_token
@@ -53,7 +53,6 @@ console.log('refresh token inside edit cat', cookies.refresh_token)
 
     return (
         <>
-            <AdminNavbar/>
             <div className="dashboard-container">
                 <AdminSidebar handleClickAction={handleClickAction}/>
 
@@ -66,9 +65,10 @@ console.log('refresh token inside edit cat', cookies.refresh_token)
                             e.preventDefault();
                             handleFormSubmit(e)
                         }}>
-                            <label htmlFor="Category" className={'label'}>Category name : <i>{categoryData.name}</i></label>
+                            <label htmlFor="Category" className={'label'}>Category name
+                                : <i>{categoryData.name}</i></label>
                             <input type="text" name={"category"} className={'form-inputbox'}
-                                   // value={categoryData.name}
+                                // value={categoryData.name}
                                    onChange={(e) => setCategoryName(e.target.value)}
                             />
                             <button type={"submit"} className="btn btn-primary submit"

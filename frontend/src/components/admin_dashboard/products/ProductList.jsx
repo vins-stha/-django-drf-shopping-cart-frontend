@@ -39,7 +39,6 @@ export const ProductList = ({handleClickAction}) => {
 
     return (
         <>
-            <AdminNavbar/>
             <div className="dashboard-container">
                 <AdminSidebar handleClickAction={handleClickAction}/>
                 <table className="table table-striped">

@@ -119,7 +119,6 @@ export const EditProduct = ({ handleClickAction }) => {
 
     return (
         <>
-            <AdminNavbar />
             <div className="dashboard-container">
                 <AdminSidebar handleClickAction={handleClickAction} />
 

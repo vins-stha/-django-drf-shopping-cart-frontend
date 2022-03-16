@@ -2,8 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useCookies} from "react-cookie";
 import {HandleAdminRequests} from '../HandleAdminRequests';
 import {AdminSidebar} from "../../admin_layout/AdminSidebar";
-import {AdminNavbar} from "../../admin_layout/AdminNavbar";
-import {categoriesAction} from "../../redux/actions";
+
 export const AddCategory = ({handleClickAction, id}) => {
 
     const [cookies, setCookie, getCookie] = useCookies();
@@ -50,7 +49,6 @@ export const AddCategory = ({handleClickAction, id}) => {
 
     return (
         <>
-            <AdminNavbar/>
             <div className="dashboard-container">
                 <AdminSidebar handleClickAction={handleClickAction}/>
                 <div className="actions-forms admin-forms">

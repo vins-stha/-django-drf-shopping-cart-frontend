@@ -8,7 +8,6 @@ import {Link} from 'react-router-dom'
 import {AdminSidebar} from "./AdminSidebar";
 
 
-
 export const CategoryList = ({handleClickAction}) => {
 
     const dispatch = useDispatch();
@@ -28,8 +27,10 @@ export const CategoryList = ({handleClickAction}) => {
             refresh_token: cookies.refresh_token
         });
 
-        if (result.status === 204)
-           {alert(result.status); setRefresh(true);}
+        if (result.status === 204) {
+            alert(result.status);
+            setRefresh(true);
+        }
     };
 
     useEffect(() => {
@@ -40,40 +41,39 @@ export const CategoryList = ({handleClickAction}) => {
 
     return (
         <>
-            <AdminNavbar/>
             <div className="dashboard-container">
                 <AdminSidebar handleClickAction={handleClickAction}/>
                 <table className="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Category-name</th>
-                    <th scope="col">Created</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {categories.map(cat=>(
-                    <tr key={cat.id}>
-                        <th scope="row">{cat.id}</th>
-                        <td>{cat.name}</td>
-                        <td>{cat.created_at}</td>
-                        <td>
-                            <div className="btn-container">
-                                <Link  className="btn btn-primary"
-                                       to={"/admin/edit-category/"+cat.id}
-                                      // onClick={e=>handleClickAction(e, "add-category",cat.id)}
-                                >Edit</Link>
-                                <div className="btn btn-danger" onClick={e=>
-                                    window.confirm("Are you sure") ? handleClick(e,'delete',cat.id) :''}>
-                                    Delete
-                                </div>
-                            </div>
-                        </td>
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Category-name</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {categories.map(cat => (
+                        <tr key={cat.id}>
+                            <th scope="row">{cat.id}</th>
+                            <td>{cat.name}</td>
+                            <td>{cat.created_at}</td>
+                            <td>
+                                <div className="btn-container">
+                                    <Link className="btn btn-primary"
+                                          to={"/admin/edit-category/" + cat.id}
+                                        // onClick={e=>handleClickAction(e, "add-category",cat.id)}
+                                    >Edit</Link>
+                                    <div className="btn btn-danger" onClick={e =>
+                                        window.confirm("Are you sure") ? handleClick(e, 'delete', cat.id) : ''}>
+                                        Delete
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
         </>
     )

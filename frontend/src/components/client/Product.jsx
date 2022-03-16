@@ -6,11 +6,6 @@ import {fetchActions, addToCart} from "../redux/actions";
 
 export default function Products() {
 
-    // const [products, setProducts] = useState([])
-    // const [filteredData, setFilteredData] = useState([])
-    // const [loading, setLoading] = useState(true);
-    // const [productId, setProductId] = useState(null)
-    // const [categories, setCategories] = useState([]);
     const dispatch = useDispatch();
 
     // fetch products on load
