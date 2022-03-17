@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { AdminNavbar } from "../../admin_layout/AdminNavbar";
-import { useDispatch, useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
-import { HandleAdminRequests } from "../HandleAdminRequests";
-import { AdminSidebar } from "../../admin_layout/AdminSidebar";
-import { categoriesAction, fetchActions } from "../../redux/actions";
-import { useParams } from "react-router";
+import React, {useState, useEffect} from 'react';
+import {AdminNavbar} from "../../admin_layout/AdminNavbar";
+import {useDispatch, useSelector} from "react-redux";
+import {useCookies} from "react-cookie";
+import {HandleAdminRequests} from "../HandleAdminRequests";
+import {AdminSidebar} from "../../admin_layout/AdminSidebar";
+import {categoriesAction, fetchActions} from "../../redux/actions";
+import {useParams} from "react-router";
 
 
-export const EditProduct = ({ handleClickAction }) => {
+export const EditProduct = ({handleClickAction}) => {
 
     const [cookies] = useCookies();
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export const EditProduct = ({ handleClickAction }) => {
 
     const [productImage, setProductImage] = useState(null);
 
-    const { product_id } = useParams();
+    const {product_id} = useParams();
 
     useEffect(async () => {
         dispatch(categoriesAction());
@@ -47,18 +47,20 @@ export const EditProduct = ({ handleClickAction }) => {
             }
         }
     }, []);
-    const state = useSelector(state=>state);
+    const state = useSelector(state => state);
     const categories = useSelector(state => state.categories);
-    useEffect(()=>{},[state]);
+    useEffect(() => {
+    }, [state]);
 
     const handleOnChange = (e) => {
         if (e.target.name === "product_image") {
+            let file = e.target.files[0]
+            console.log('IMAGE FULEs', file === null, 'name', file.name, file)
             setProductImage(
                 e.target.files[0]
             )
         } else {
-            setProductData({ ...productData, [e.target.name]: e.target.value });
-
+            setProductData({...productData, [e.target.name]: e.target.value});
         }
     };
     const handleFormSubmit = async (e) => {
@@ -66,16 +68,29 @@ export const EditProduct = ({ handleClickAction }) => {
         let formData = new FormData();
 
         Object.entries(productData).forEach(([key, value]) => {
-            formData.append(key, value)
-        }
+                formData.append(key, value)
+            }
         );
 
-        await formData.append('product_image', productImage);
+        // attach the old picture if no new picture is selected
+        if (productImage === null) {
+            let response = await fetch(productData.product_image);
+            let data = await response.blob();
+            let name = (productData.product_image).split(/[\\\/]/).pop();
+            let metadata = {
+                type: data.type
+            };
 
-        Object.entries(productData).forEach(([key, value]) => {
-            console.log("key", key, "value", value)
-        }
-        );
+            let product_image = new File([data], name, metadata);
+            formData.append('product_image', product_image);
+
+        } else
+            formData.append('product_image', productImage);
+
+        // Object.entries(productData).forEach(([key, value]) => {
+        //     console.log("key", key, "value", value)
+        // }
+        // );
 
 
         let result = await HandleAdminRequests({
@@ -91,7 +106,7 @@ export const EditProduct = ({ handleClickAction }) => {
             alert('Data updated');
             window.location = "/admin/products/";
         } else
-            alert( result.message);
+            alert(result.message);
         // for (var key of formData.entries()) {
         //     console.log(key[0] + ', ' + key[1])
         // }
@@ -120,7 +135,7 @@ export const EditProduct = ({ handleClickAction }) => {
     return (
         <>
             <div className="dashboard-container">
-                <AdminSidebar handleClickAction={handleClickAction} />
+                <AdminSidebar handleClickAction={handleClickAction}/>
 
                 <div className="actions-forms admin-forms">
                     <div className="input-form">
@@ -135,28 +150,29 @@ export const EditProduct = ({ handleClickAction }) => {
                             <label htmlFor="Prodcut" className={'label'}>Product name
                                 : <i>{productData['title']}</i></label>
                             <input type="text" name="title" className={'form-inputbox'}
-                                defaultValue={productData['title']}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData['title']}
+                                   onChange={e => handleOnChange(e)}
                             />
                             <label htmlFor="Prodcut" className={'label'}>Price :</label>
                             <input type="number" name="price" className={'form-inputbox'}
-                                defaultValue={productData['price']}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData['price']}
+                                   onChange={e => handleOnChange(e)}
                             />
                             <label htmlFor="Prodcut" className={'label'}>Barcode :</label>
                             <input type="number" name="barcode" className={'form-inputbox'}
-                                defaultValue={productData['barcode']}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData['barcode']}
+                                   onChange={e => handleOnChange(e)}
                             />
                             <label htmlFor="Prodcut" className={'label'}>Available :</label>
                             <input type="number" name="available" className={'form-inputbox'}
-                                defaultValue={productData['available']}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData['available']}
+                                   onChange={e => handleOnChange(e)}
                             />
 
                             <label htmlFor="Prodcut" className={'label'}>Colors :</label>
 
-                            <select type="select" name={"colors"} className={'form-inputbox'} onChange={e => handleOnChange(e)}>
+                            <select type="select" name={"colors"} className={'form-inputbox'}
+                                    onChange={e => handleOnChange(e)}>
                                 {
                                     colors.map(opt => {
                                         return (opt === productData.colors) ?
@@ -167,42 +183,43 @@ export const EditProduct = ({ handleClickAction }) => {
                             </select>
                             <label htmlFor="Prodcut" className={'label'}>Description :</label>
                             <textarea name="description" className={'form-inputbox'}
-                                defaultValue={productData['description']} rows={"10"} cols={"500"}
-                                onChange={e => handleOnChange(e)}
+                                      defaultValue={productData['description']} rows={"10"} cols={"500"}
+                                      onChange={e => handleOnChange(e)}
                             />
-                            <img className="card-img-top prod-image contain" src={productData['product_image']} alt="" />
+                            <img className="card-img-top prod-image contain" src={productData['product_image']} alt=""/>
                             <input type="file" name="product_image" className={'form-inputbox'}
-                                defaultValue={productData.product_image}
-                                onChange={e => handleOnChange(e)}
+                                   defaultValue={productData.product_image}
+                                   onChange={e => handleOnChange(e)}
                             />
                             <label htmlFor="description" className={'name'}>Category : </label>
                             <select type="select" name={"category"} className={'form-inputbox'}>
                                 {categories.map(cat => {
-                                    return (cat.id === productData.cat_id ?
-                                        (<option key={cat.id} selected={true}>{cat.name}</option>)
-                                        :
-                                        (<option key={cat.id}>{cat.name}</option>))
+                                        return (cat.id === productData.cat_id ?
+                                            (<option key={cat.id} selected={true}>{cat.name}</option>)
+                                            :
+                                            (<option key={cat.id}>{cat.name}</option>))
 
-                                }
+                                    }
                                 )}
                             </select>
 
                             <label htmlFor="description" className={'name'}>inStock : </label>
-                            <select type="select" name={"inStock"} className={'form-inputbox'} onChange={e => handleOnChange(e)}>
+                            <select type="select" name={"inStock"} className={'form-inputbox'}
+                                    onChange={e => handleOnChange(e)}>
                                 {inStockOptions.map(opt => {
                                     return (opt === productData.inStock ?
-                                        (<option key={opt} defaultChecked={true}>{opt}</option>) :
-                                        (<option key={opt}>{opt}</option>)
+                                            (<option key={opt} defaultChecked={true}>{opt}</option>) :
+                                            (<option key={opt}>{opt}</option>)
                                     )
                                 })
                                 }
                             </select>
 
                             <button type={"submit"} className="btn btn-primary submit"
-                                onSubmit={e => {
-                                    e.preventDefault();
-                                    handleFormSubmit(e)
-                                }}> Update
+                                    onSubmit={e => {
+                                        e.preventDefault();
+                                        handleFormSubmit(e)
+                                    }}> Update
                             </button>
                         </form>
                     </div>

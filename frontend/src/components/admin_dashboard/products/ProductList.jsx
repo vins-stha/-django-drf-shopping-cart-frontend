@@ -6,12 +6,10 @@ import {Link} from 'react-router-dom'
 import {AdminSidebar} from "../../admin_layout/AdminSidebar";
 import {fetchActions} from "../../redux/actions";
 
-
 export const ProductList = ({handleClickAction}) => {
 
     const dispatch = useDispatch();
     const [cookies] = useCookies();
-    const [refresh, setRefresh] = useState(false);
     let reload = false;
     const handleClick = async (e, action, pk) => {
         e.preventDefault();
@@ -28,7 +26,6 @@ export const ProductList = ({handleClickAction}) => {
 
         if (result.code === 204) {
             alert("Deleted Successfully");
-            setRefresh(true);
             reload = true;
         }
     };

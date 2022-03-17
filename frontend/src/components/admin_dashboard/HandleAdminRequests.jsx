@@ -9,7 +9,7 @@ export async function HandleAdminRequests(params) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ refresh: token })
+                body: JSON.stringify({refresh: token})
             });
 
             let response = await result.json();
@@ -53,7 +53,7 @@ export async function HandleAdminRequests(params) {
             result = await fetch(BASE_URL + url, {
                 'method': params.method,
 
-                headers: { 'Authorization': `Bearer ${params.access_token}` },
+                headers: {'Authorization': `Bearer ${params.access_token}`},
 
                 body: params.body
             });
@@ -69,18 +69,18 @@ export async function HandleAdminRequests(params) {
         }
 
         // console.log('RESUKT of fetch=>', result)
-        // if (result.statusText === "OK" && !result.bodyUsed) {
-        if (params.method === "get" || params.method === "post"){
+        if (params.method === "get" || params.method === "post") {
             let response = await result.json();
 
             // console.log('rESPONSE', response);
             return response
         }
         let results = {
-            code : result.status,
-            message:result.statusText
+            code: result.status,
+            message: result.statusText
         };
-        return results // params.method === "put" ||  params.method === "post" || params.method === "delete" ? result : "response"
+        return results
+
     } catch (error) {
         console.log('Something went wrong', error);
     }
